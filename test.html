@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Carousel Example</title>
+    <style>
+      /* Style for carousel container */
+      .carousel-container {
+        width: 100%;
+        height: 500px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* Style for carousel slide */
+      .carousel-slide {
+        width: 100%;
+        height: 100%;
+        display: flex;
+      }
+
+      /* Style for carousel image */
+      .carousel-slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      /* Style for carousel navigation buttons */
+      .carousel-prev,
+      .carousel-next {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+        font-size: 30px;
+        font-weight: bold;
+        color: white;
+        background-color: rgba(0, 0, 0, 0.5);
+        padding: 10px 20px;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+      }
+
+      .carousel-prev:hover,
+      .carousel-next:hover {
+        background-color: rgba(0, 0, 0, 0.8);
+      }
+
+      .carousel-prev {
+        left: 20px;
+      }
+
+      .carousel-next {
+        right: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="carousel-container">
+      <div class="carousel-slide">
+        <img src="screenshots/0.png" />
+        <img src="screenshots/1.png" />
+        <img src="screenshots/2.png" />
+        <img src="screenshots/3.jpg" />
+        <img src="screenshots/4.jpg" />
+        <img src="screenshots/5.jpg" />
+        <img src="screenshots/6.jpg" />
+        <img src="screenshots/7.jpg" />
+        <img src="screenshots/8.jpg" />
+        <img src="screenshots/9.jpg" />
+        <img src="screenshots/10.jpg" />
+        <img src="screenshots/11.jpg" />
+        <img src="screenshots/12.jpg" />
+        <img src="screenshots/13.jpg" />
+        <img src="screenshots/14.jpg" />
+      </div>
+      <div class="carousel-prev">&#10094;</div>
+      <div class="carousel-next">&#10095;</div>
+    </div>
+
+    <script>
+ const carouselSlide = document.querySelector(".carousel-slide");
+    const carouselImages = document.querySelectorAll(".carousel-slide img");
+
+    // Buttons
+    const prevBtn = document.querySelector(".carousel-prev");
+    const nextBtn = document.querySelector(".carousel-next");
+
+    // Counter
+    let counter = 0;
+    const size = carouselImages[0].clientWidth;
+
+    carouselSlide.style.transform = `translateX(${-size * counter}px)`;
+
+    // Button listeners
+    nextBtn.addEventListener("click", () => {
+    if (counter >= carouselImages.length - 1) return;
+    carouselSlide.style.transition = "transform 0.4s ease-in-out";
+    counter++;
+    carouselSlide.style.transform = `translateX(${-size * counter}px)`;
+    });
+
+    prevBtn.addEventListener("click", () => {
+    if (counter <= 0) return;
+    carouselSlide.style.transition = "transform 0.4s ease-in-out";
+    counter--;
+    carouselSlide.style.transform = `translateX(${-size * counter}px)`;
+    });
+
+    // Loop back to the first image after the last image
+    carouselSlide.addEventListener("transitionend", () => {
+    if (carouselImages[counter].id === "last-clone") {
+        carouselSlide.style.transition = "none";
+        counter = carouselImages.length - 2;
+        carouselSlide.style.transform = `translateX(${-size * counter}px)`;
+    }
+    if (carouselImages[counter].id === "first-clone") {
+        carouselSlide.style.transition = "none";
+        counter = carouselImages.length - counter;
+        carouselSlide.style.transform = `translateX(${-size * counter}px)`;
+    }
+    });
+</script>
+</body> 
+</html>
